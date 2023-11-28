@@ -2,6 +2,8 @@
 
 name: Test Webservices
 on:
+  workflow_dispatch:
+  push:
   schedule:
     # execute daily at 8 am
     - cron:  '0 8 * * *'
