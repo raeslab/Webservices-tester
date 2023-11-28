@@ -1,0 +1,26 @@
+# GitHub Action that runs pytest
+
+name: Test Webservices
+on:
+  schedule:
+    # execute daily at 8 am
+    - cron:  '0 8 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with: # https://github.com/stefanzweifel/git-auto-commit-action#checkout-the-correct-branch
+          ref: ${{ github.head_ref }}
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+      - name: Install requirements
+      - run: |
+          pip install -r requirements.txt
+      - name: Run script
+        run: |
+          python test_webservices.py
