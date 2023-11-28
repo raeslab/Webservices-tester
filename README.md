@@ -1,3 +1,5 @@
+[![Test Webservices](https://github.com/raeslab/Webservices-tester/actions/workflows/autorun.yml/badge.svg)](https://github.com/raeslab/Webservices-tester/actions/workflows/autorun.yml)
+
 # Webservices Health Check
 
 This repository contains a Python script designed to check the operational status of various webservices. The script makes HTTP GET requests to predefined service endpoints and evaluates whether each service is online and functioning as expected.
