@@ -26,3 +26,16 @@ jobs:
       - name: Run script
         run: |
           python test_webservices.py
+      # Update timestamp last run
+      - name: Update last_run
+        run: |
+          date > timestamp
+      # Commit and Push timestamp
+      - name: Commit and Push files
+        run: |
+          git config --local user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git config --local user.name "fetch-keyforge[bot]"
+          git add timestamp
+          git commit -m "Update timestamp last run" -a
+          git push
+          
