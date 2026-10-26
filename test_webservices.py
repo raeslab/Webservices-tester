@@ -25,11 +25,11 @@ def get_response(url):
     return response
 
 
-def check_codegen(url="https://raeslab.org/webservices/codeGen/"):
+def check_codegen(url="https://gbiomed-p-raeslab-webservices.cloud-ext.icts.kuleuven.be/codegen/"):
     """Check if the CodeGen webservice is online by querying its status.
 
     Args:
-        url (str): The URL of the CodeGen webservice to check. Defaults to raeslab's CodeGen service.
+        url (str): The URL of the CodeGen webservice to check. Defaults to the KU Leuven-hosted CodeGen service.
 
     Raises:
         ValueError: If the CodeGen service is not marked as 'online'.
@@ -44,24 +44,38 @@ def check_codegen(url="https://raeslab.org/webservices/codeGen/"):
         raise ValueError("CodeGen service is not online.")
 
 
-def check_addressvalidation(url="https://raeslab.org/webservices/addressValidation/"):
+def check_addressvalidation(url="https://gbiomed-p-raeslab-webservices.cloud-ext.icts.kuleuven.be/bpost/"):
     """Check if the AddressValidation webservice is accessible by making a GET request.
 
     Args:
-        url (str): The URL of the AddressValidation webservice to check. Defaults to raeslab's service.
+        url (str): The URL of the AddressValidation webservice to check. Defaults to the KU Leuven-hosted service.
+
+    Raises:
+        ValueError: If the response is not the AddressValidation service's own page.
     """
-    # Simply make a GET request to verify accessibility.
-    get_response(url)
+    # Make a GET request and confirm the service's own page is returned.
+    response = get_response(url)
+
+    # The gateway answers unknown paths with its index page, so check the content.
+    if "BPost Microservice" not in response.text:
+        raise ValueError("AddressValidation service did not return its own page.")
 
 
-def check_medicalMS(url="https://raeslab.org/webservices/medicalMS/"):
+def check_medicalMS(url="https://gbiomed-p-raeslab-webservices.cloud-ext.icts.kuleuven.be/medical/"):
     """Check if the MedicalMS webservice is accessible by making a GET request.
 
     Args:
-        url (str): The URL of the MedicalMS webservice to check. Defaults to raeslab's service.
+        url (str): The URL of the MedicalMS webservice to check. Defaults to the KU Leuven-hosted service.
+
+    Raises:
+        ValueError: If the response is not the MedicalMS service's own page.
     """
-    # Simply make a GET request to verify accessibility.
-    get_response(url)
+    # Make a GET request and confirm the service's own page is returned.
+    response = get_response(url)
+
+    # The gateway answers unknown paths with its index page, so check the content.
+    if "Medical Typeahead" not in response.text:
+        raise ValueError("MedicalMS service did not return its own page.")
 
 
 if __name__ == "__main__":
